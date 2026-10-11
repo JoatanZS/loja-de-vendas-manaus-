@@ -3,243 +3,261 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#14532d">
-  <title>Mercado Vila | Compras online</title>
+  <meta name="theme-color" content="#5b21b6">
+  <title>Açaí Mania | Peça o seu</title>
+
   <style>
     :root {
-      --green: #176b3a;
-      --green-dark: #104c2a;
-      --green-light: #eaf5ed;
-      --ink: #17231a;
-      --muted: #69766c;
-      --line: #e7ece7;
-      --surface: #fff;
-      --bg: #f7f9f6;
-      --yellow: #f6c445;
-      --shadow: 0 10px 30px rgba(24, 54, 32, .08);
+      --purple: #6d28d9;
+      --purple-dark: #3b0764;
+      --purple-deep: #26043f;
+      --pink: #f472b6;
+      --yellow: #facc15;
+      --cream: #fffaf5;
+      --ink: #281638;
+      --muted: #786b83;
+      --line: #eee5f2;
+      --shadow: 0 14px 38px rgba(59, 7, 100, .12);
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--bg);
+      background: var(--cream);
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     }
     button, input { font: inherit; }
     button { cursor: pointer; }
 
-    .top-strip {
-      background: var(--green-dark);
-      color: #e7f5e9;
-      text-align: center;
+    .announcement {
       padding: 9px 16px;
+      color: white;
+      background: var(--purple-dark);
+      text-align: center;
       font-size: 12px;
-      letter-spacing: .2px;
+      font-weight: 600;
     }
 
     header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--line);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      background: rgba(255, 250, 245, .94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
     .header-inner {
-      max-width: 1240px;
-      min-height: 78px;
+      max-width: 1200px;
+      min-height: 76px;
       margin: auto;
-      padding: 14px 24px;
+      padding: 12px 24px;
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
-      min-width: 220px;
+      gap: 10px;
+      min-width: 205px;
       color: var(--ink);
       text-decoration: none;
     }
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
+    .brand-icon {
+      width: 45px;
+      height: 45px;
       display: grid;
       place-items: center;
-      background: var(--green);
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
       color: white;
-      font-size: 23px;
+      font-size: 24px;
+      box-shadow: 0 7px 18px #6d28d944;
     }
-    .brand-name { font-size: 17px; font-weight: 800; line-height: 1.1; }
-    .brand-caption { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .brand-name { font-size: 17px; line-height: 1; font-weight: 900; }
+    .brand-name span { color: var(--purple); }
+    .brand-subtitle { margin-top: 5px; color: var(--muted); font-size: 10px; }
 
     .search-wrap { flex: 1; position: relative; }
-    .search-wrap span {
+    .search-icon {
       position: absolute;
-      left: 15px;
       top: 50%;
+      left: 14px;
       transform: translateY(-50%);
-      color: #879188;
+      color: #8c7c98;
       font-size: 18px;
     }
     .search {
       width: 100%;
-      height: 46px;
-      padding: 0 16px 0 44px;
+      height: 44px;
+      padding: 0 14px 0 42px;
       border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 13px;
       outline: none;
-      background: #f8faf8;
-      color: var(--ink);
+      background: white;
     }
-    .search:focus { border-color: #80b58e; box-shadow: 0 0 0 3px #176b3a15; }
+    .search:focus { border-color: #a78bfa; box-shadow: 0 0 0 3px #6d28d918; }
 
-    .header-actions { display: flex; align-items: center; gap: 12px; }
-    .delivery-note { color: var(--muted); font-size: 12px; line-height: 1.4; }
-    .delivery-note strong { color: var(--ink); display: block; }
     .cart-button {
       border: 0;
-      border-radius: 12px;
-      background: var(--green);
-      color: white;
-      padding: 12px 16px;
-      font-weight: 700;
+      border-radius: 13px;
+      padding: 11px 15px;
       display: flex;
       align-items: center;
       gap: 9px;
-      white-space: nowrap;
+      color: white;
+      background: var(--purple);
+      font-size: 13px;
+      font-weight: 800;
+      transition: .2s;
     }
-    .cart-button:hover, .primary-button:hover { background: var(--green-dark); }
+    .cart-button:hover { background: var(--purple-dark); transform: translateY(-1px); }
     .cart-count {
       min-width: 22px;
       height: 22px;
-      padding: 0 6px;
       display: grid;
       place-items: center;
-      border-radius: 99px;
-      color: var(--green-dark);
-      background: white;
-      font-size: 12px;
+      padding: 0 5px;
+      border-radius: 50px;
+      color: var(--purple-dark);
+      background: var(--yellow);
+      font-size: 11px;
     }
 
-    main { max-width: 1240px; padding: 28px 24px 60px; margin: auto; }
+    main { max-width: 1200px; margin: auto; padding: 26px 24px 60px; }
+
     .hero {
-      min-height: 300px;
-      padding: 42px;
-      border-radius: 24px;
-      overflow: hidden;
+      min-height: 350px;
+      padding: 48px;
       position: relative;
+      overflow: hidden;
       display: flex;
       align-items: center;
-      background:
-        radial-gradient(circle at 82% 45%, #ffffff35 0 12%, transparent 12.5%),
-        radial-gradient(circle at 88% 72%, #ffffff28 0 18%, transparent 18.5%),
-        linear-gradient(115deg, #104c2a, #23834c 70%, #49a65e);
+      border-radius: 28px;
       color: white;
+      background:
+        radial-gradient(circle at 82% 20%, #f9a8d455 0 13%, transparent 13.5%),
+        radial-gradient(circle at 90% 85%, #facc1540 0 17%, transparent 17.5%),
+        linear-gradient(120deg, #3b0764 0%, #6d28d9 58%, #a855f7 100%);
+      box-shadow: 0 20px 50px #5b21b633;
     }
-    .hero-content { max-width: 540px; position: relative; z-index: 1; }
-    .eyebrow {
-      display: inline-block;
-      padding: 7px 11px;
-      border: 1px solid #ffffff55;
+    .hero-content { max-width: 560px; position: relative; z-index: 2; }
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid #ffffff50;
       border-radius: 99px;
-      background: #ffffff15;
+      background: #ffffff18;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: .5px;
       text-transform: uppercase;
-      letter-spacing: .8px;
     }
     .hero h1 {
-      margin: 17px 0 12px;
-      font-size: clamp(32px, 5vw, 52px);
-      line-height: 1.04;
-      letter-spacing: -1.8px;
+      margin: 18px 0 12px;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: .98;
+      letter-spacing: -2.5px;
     }
-    .hero p { max-width: 430px; margin: 0; color: #e3f3e6; line-height: 1.65; }
+    .hero h1 span { color: var(--yellow); }
+    .hero p { max-width: 430px; color: #f2e8ff; line-height: 1.65; font-size: 15px; }
+    .hero-actions { display: flex; align-items: center; gap: 15px; margin-top: 25px; }
     .hero-cta {
-      display: inline-flex;
-      margin-top: 23px;
-      padding: 12px 17px;
-      border-radius: 10px;
+      padding: 13px 18px;
+      border-radius: 12px;
+      color: var(--purple-dark);
       background: var(--yellow);
-      color: #25301f;
       text-decoration: none;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 900;
+      transition: .2s;
     }
-    .hero-art {
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px #1b053b55; }
+    .hero-note { color: #f2e8ff; font-size: 12px; }
+    .hero-bowl {
       position: absolute;
       right: 8%;
-      bottom: -18px;
-      font-size: clamp(100px, 18vw, 205px);
-      filter: drop-shadow(0 18px 14px #0d3c2650);
+      bottom: -17px;
+      font-size: clamp(130px, 22vw, 245px);
+      filter: drop-shadow(0 20px 18px #24044466);
+      animation: float 3.5s ease-in-out infinite;
       transform: rotate(-8deg);
     }
+    .sparkle {
+      position: absolute;
+      color: var(--yellow);
+      font-size: 34px;
+      animation: twinkle 1.8s ease-in-out infinite alternate;
+    }
+    .sparkle.one { right: 31%; top: 18%; }
+    .sparkle.two { right: 6%; top: 32%; animation-delay: .7s; }
 
-    .benefits {
+    .features {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin: 20px 0 34px;
+      gap: 13px;
+      margin: 18px 0 38px;
     }
-    .benefit {
+    .feature {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 16px;
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 16px;
       background: white;
     }
-    .benefit-icon {
-      width: 40px;
-      height: 40px;
+    .feature-icon {
+      width: 42px;
+      height: 42px;
       flex: 0 0 auto;
       display: grid;
       place-items: center;
-      border-radius: 12px;
-      background: var(--green-light);
-      font-size: 19px;
+      border-radius: 13px;
+      background: #f3e8ff;
+      font-size: 20px;
     }
-    .benefit strong { display: block; font-size: 13px; }
-    .benefit small { display: block; color: var(--muted); margin-top: 4px; font-size: 11px; }
+    .feature strong { display: block; font-size: 13px; }
+    .feature small { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
 
     .section-heading {
       display: flex;
-      justify-content: space-between;
       align-items: end;
-      gap: 16px;
-      margin-bottom: 18px;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 17px;
     }
-    .section-heading h2 { margin: 0; font-size: 23px; letter-spacing: -.5px; }
+    .section-heading h2 { margin: 0; font-size: 27px; letter-spacing: -.8px; }
     .section-heading p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
 
     .categories {
       display: flex;
       gap: 9px;
       overflow-x: auto;
-      padding: 2px 0 16px;
+      padding: 2px 0 17px;
       scrollbar-width: thin;
     }
     .category-button {
       flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      padding: 10px 15px;
       border: 1px solid var(--line);
       border-radius: 99px;
-      padding: 10px 15px;
+      color: #574563;
       background: white;
-      color: #48544a;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
+      transition: .2s;
     }
+    .category-button:hover { border-color: #c4a8e7; }
     .category-button.active {
-      background: var(--green);
+      border-color: var(--purple);
       color: white;
-      border-color: var(--green);
+      background: var(--purple);
+      box-shadow: 0 5px 14px #6d28d933;
     }
 
     .product-grid {
@@ -250,78 +268,98 @@
     .product-card {
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 18px;
       background: white;
-      transition: transform .18s ease, box-shadow .18s ease;
+      transition: transform .2s, box-shadow .2s;
     }
-    .product-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
     .product-visual {
-      height: 174px;
+      height: 175px;
       display: grid;
       place-items: center;
       position: relative;
-      background: linear-gradient(145deg, #f5f8f2, #edf3eb);
-      font-size: 76px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #f6edff, #fff1f7);
     }
+    .product-visual::before, .product-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: #ffffff80;
+    }
+    .product-visual::before { width: 130px; height: 130px; top: -70px; right: -25px; }
+    .product-visual::after { width: 85px; height: 85px; bottom: -50px; left: -20px; }
+    .product-emoji {
+      z-index: 1;
+      font-size: 78px;
+      filter: drop-shadow(0 10px 8px #3b076433);
+      transition: transform .25s;
+    }
+    .product-card:hover .product-emoji { transform: scale(1.1) rotate(-5deg); }
     .product-tag {
       position: absolute;
+      z-index: 2;
       top: 12px;
       left: 12px;
-      padding: 6px 8px;
-      border-radius: 6px;
-      background: #fff;
-      color: var(--green);
+      padding: 6px 9px;
+      border-radius: 7px;
+      color: var(--purple-dark);
+      background: var(--yellow);
       font-size: 10px;
-      font-weight: 800;
-      box-shadow: 0 2px 8px #0000000c;
+      font-weight: 900;
     }
     .product-info { padding: 14px; }
     .product-category {
-      color: #89938a;
+      color: #9a6ac2;
       font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
+      font-weight: 900;
       letter-spacing: .7px;
+      text-transform: uppercase;
     }
-    .product-name { min-height: 38px; margin: 7px 0 3px; font-size: 14px; font-weight: 700; }
-    .product-detail { color: var(--muted); font-size: 11px; }
-    .product-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-top: 14px;
-    }
-    .price { color: var(--green-dark); font-size: 17px; font-weight: 800; }
+    .product-name { min-height: 38px; margin: 7px 0 4px; font-size: 15px; font-weight: 800; }
+    .product-detail { min-height: 30px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 13px; }
+    .price { color: var(--purple-dark); font-size: 18px; font-weight: 900; }
     .price-unit { color: var(--muted); font-size: 10px; font-weight: 500; }
     .add-button {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border: 0;
-      border-radius: 10px;
-      background: var(--green-light);
-      color: var(--green);
-      font-size: 22px;
-      font-weight: 500;
+      border-radius: 12px;
+      color: white;
+      background: var(--purple);
+      font-size: 23px;
+      transition: .2s;
     }
-    .add-button:hover { background: var(--green); color: white; }
+    .add-button:hover { background: var(--pink); transform: rotate(90deg); }
     .empty-state {
       grid-column: 1 / -1;
-      padding: 50px 20px;
-      border: 1px dashed #cbd8cc;
-      border-radius: 16px;
+      padding: 48px 20px;
+      border: 1px dashed #d9c6e8;
+      border-radius: 18px;
       color: var(--muted);
-      text-align: center;
       background: white;
+      text-align: center;
     }
 
-    footer {
-      background: #112b1b;
-      color: #d9e6dc;
-      padding: 30px 24px;
+    .promo {
+      margin-top: 34px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-radius: 18px;
+      color: white;
+      background: linear-gradient(100deg, #3b0764, #7e22ce);
     }
+    .promo strong { font-size: 16px; }
+    .promo p { margin: 5px 0 0; color: #eadcff; font-size: 12px; }
+    .promo-badge { font-size: 34px; }
+
+    footer { padding: 30px 24px; color: #e9dcf3; background: #26043f; }
     .footer-inner {
-      max-width: 1240px;
+      max-width: 1200px;
       margin: auto;
       display: flex;
       justify-content: space-between;
@@ -332,197 +370,202 @@
     .footer-inner strong { color: white; }
 
     dialog {
-      width: min(480px, calc(100% - 28px));
+      width: min(490px, calc(100% - 28px));
       max-height: 85vh;
-      border: 0;
-      border-radius: 18px;
       padding: 0;
+      border: 0;
+      border-radius: 20px;
       color: var(--ink);
-      box-shadow: 0 24px 80px #0004;
+      box-shadow: 0 25px 90px #1d073b55;
     }
-    dialog::backdrop { background: #0d1c12a8; backdrop-filter: blur(3px); }
+    dialog::backdrop { background: #210b32a8; backdrop-filter: blur(4px); }
     .dialog-head, .dialog-body, .dialog-foot { padding: 20px; }
-    .dialog-head { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); }
-    .dialog-head h2 { margin: 0; font-size: 19px; }
-    .close-button { border: 0; background: none; color: var(--muted); font-size: 23px; }
-    .dialog-body { max-height: 48vh; overflow: auto; }
+    .dialog-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .dialog-head h2 { margin: 0; font-size: 20px; }
+    .close-button { border: 0; color: var(--muted); background: none; font-size: 25px; }
+    .dialog-body { max-height: 45vh; overflow: auto; }
     .cart-row {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 12px;
+      gap: 10px;
       padding: 13px 0;
       border-bottom: 1px solid var(--line);
     }
-    .cart-row-name { font-size: 13px; font-weight: 700; }
-    .cart-row-price { margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .cart-row-name { font-size: 13px; font-weight: 800; }
+    .cart-row-price { margin-top: 5px; color: var(--muted); font-size: 11px; }
     .quantity { display: flex; align-items: center; gap: 8px; }
     .quantity button {
-      width: 27px;
-      height: 27px;
+      width: 28px;
+      height: 28px;
       border: 1px solid var(--line);
       border-radius: 8px;
+      color: var(--purple);
       background: white;
     }
     .dialog-foot { border-top: 1px solid var(--line); }
-    .total-line { display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; }
-    .primary-button {
+    .total-line { display: flex; justify-content: space-between; font-size: 15px; font-weight: 900; }
+    .primary-button, .secondary-button {
       width: 100%;
-      margin-top: 16px;
+      margin-top: 15px;
       padding: 13px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--green);
-      color: white;
-      font-weight: 800;
+      border-radius: 11px;
+      font-weight: 900;
     }
-    .secondary-button {
-      width: 100%;
-      margin-top: 9px;
-      padding: 11px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: white;
-      color: var(--ink);
-      font-weight: 700;
+    .primary-button { border: 0; color: white; background: var(--purple); }
+    .primary-button:hover { background: var(--purple-dark); }
+    .secondary-button { margin-top: 9px; border: 1px solid var(--line); color: var(--ink); background: white; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-8deg); }
+      50% { transform: translateY(-13px) rotate(-4deg); }
+    }
+    @keyframes twinkle {
+      from { opacity: .5; transform: scale(.8) rotate(0); }
+      to { opacity: 1; transform: scale(1.15) rotate(15deg); }
     }
 
     @media (max-width: 900px) {
       .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .delivery-note { display: none; }
+      .brand { min-width: 180px; }
     }
     @media (max-width: 650px) {
-      .header-inner { padding: 12px 16px; gap: 12px; flex-wrap: wrap; }
-      .brand { min-width: 0; flex: 1; }
-      .brand-caption { display: none; }
-      .header-actions { order: 2; }
+      .header-inner { padding: 11px 15px; gap: 10px; flex-wrap: wrap; }
+      .brand { flex: 1; min-width: 0; }
+      .brand-subtitle { display: none; }
       .search-wrap { order: 3; flex-basis: 100%; }
       .cart-button { padding: 10px 12px; font-size: 12px; }
-      main { padding: 18px 16px 42px; }
-      .hero { min-height: 280px; padding: 27px 23px; }
-      .hero-art { right: -5px; bottom: -5px; opacity: .6; }
-      .hero-content { max-width: 85%; }
-      .hero h1 { font-size: 35px; }
-      .benefits { grid-template-columns: 1fr; gap: 9px; margin: 14px 0 28px; }
-      .benefit { padding: 12px; }
+      main { padding: 17px 15px 42px; }
+      .hero { min-height: 330px; padding: 28px 23px; border-radius: 22px; }
+      .hero-content { max-width: 88%; }
+      .hero h1 { font-size: 43px; }
+      .hero p { font-size: 13px; }
+      .hero-bowl { right: -16px; bottom: -4px; opacity: .48; }
+      .sparkle.one { right: 20%; }
+      .features { grid-template-columns: 1fr; gap: 8px; margin: 13px 0 30px; }
+      .feature { padding: 12px; }
+      .section-heading h2 { font-size: 23px; }
       .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
-      .product-visual { height: 135px; font-size: 60px; }
+      .product-visual { height: 135px; }
+      .product-emoji { font-size: 62px; }
       .product-info { padding: 11px; }
       .product-name { font-size: 13px; }
       .price { font-size: 15px; }
-      .section-heading h2 { font-size: 20px; }
+      .promo { padding: 17px; }
+      .promo strong { font-size: 14px; }
     }
   </style>
 </head>
 <body>
-  <div class="top-strip">🚚 Entrega rápida na sua região · Consulte disponibilidade pelo WhatsApp</div>
+  <div class="announcement">💜 Açaí feito na hora · Peça pelo WhatsApp e consulte a entrega</div>
 
   <header>
     <div class="header-inner">
-      <a class="brand" href="#" aria-label="Mercado Vila - início">
-        <div class="brand-mark">🛒</div>
+      <a class="brand" href="#" aria-label="Açaí Mania - início">
+        <div class="brand-icon">🍇</div>
         <div>
-          <div class="brand-name">Mercado Vila</div>
-          <div class="brand-caption">Qualidade e economia perto de você</div>
+          <div class="brand-name">AÇAÍ <span>MANIA</span></div>
+          <div class="brand-subtitle">Seu momento mais gostoso</div>
         </div>
       </a>
 
       <label class="search-wrap">
-        <span>⌕</span>
-        <input id="search" class="search" type="search" placeholder="O que você está procurando?">
+        <span class="search-icon">⌕</span>
+        <input id="search" class="search" type="search" placeholder="Busque seu açaí favorito...">
       </label>
 
-      <div class="header-actions">
-        <div class="delivery-note"><strong>Atendimento</strong>Seg a sáb · 8h às 20h</div>
-        <button class="cart-button" onclick="abrirCarrinho()">
-          🛍️ Carrinho <span class="cart-count" id="cart-count">0</span>
-        </button>
-      </div>
+      <button class="cart-button" onclick="abrirCarrinho()">
+        🛍️ Meu pedido <span id="cart-count" class="cart-count">0</span>
+      </button>
     </div>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-content">
-        <span class="eyebrow">Seu mercado online</span>
-        <h1>Mais praticidade<br>para o seu dia.</h1>
-        <p>Encontre seus produtos favoritos, monte seu pedido e fale com a nossa equipe pelo WhatsApp.</p>
-        <a class="hero-cta" href="#produtos">Ver produtos&nbsp; →</a>
-      </div>
-      <div class="hero-art" aria-hidden="true">🥬</div>
-    </section>
-
-    <section class="benefits" aria-label="Vantagens">
-      <div class="benefit"><div class="benefit-icon">🥦</div><div><strong>Produtos selecionados</strong><small>Qualidade para sua casa</small></div></div>
-      <div class="benefit"><div class="benefit-icon">🚚</div><div><strong>Pedido fácil e rápido</strong><small>Finalize pelo WhatsApp</small></div></div>
-      <div class="benefit"><div class="benefit-icon">💚</div><div><strong>Atendimento próximo</strong><small>Conte com a nossa equipe</small></div></div>
-    </section>
-
-    <section id="produtos">
-      <div class="section-heading">
-        <div>
-          <h2>Compre por categoria</h2>
-          <p>Escolha seus produtos e adicione ao carrinho.</p>
+        <span class="hero-label">✨ Energia que combina com você</span>
+        <h1>Seu dia fica<br>melhor com <span>açaí!</span></h1>
+        <p>Escolha seu tamanho, capriche nos acompanhamentos e monte uma combinação do seu jeito.</p>
+        <div class="hero-actions">
+          <a class="hero-cta" href="#cardapio">Montar meu açaí&nbsp; →</a>
+          <span class="hero-note">🍓 Cremoso e preparado na hora</span>
         </div>
       </div>
-      <nav id="categories" class="categories" aria-label="Categorias"></nav>
+      <span class="sparkle one">✦</span>
+      <span class="sparkle two">✧</span>
+      <div class="hero-bowl" aria-hidden="true">🍨</div>
+    </section>
+
+    <section class="features" aria-label="Vantagens">
+      <div class="feature"><div class="feature-icon">🍓</div><div><strong>Ingredientes selecionados</strong><small>Mais sabor em cada colherada</small></div></div>
+      <div class="feature"><div class="feature-icon">⚡</div><div><strong>Peça sem complicação</strong><small>Seu pedido direto no WhatsApp</small></div></div>
+      <div class="feature"><div class="feature-icon">💜</div><div><strong>Monte do seu jeito</strong><small>Escolha seus favoritos</small></div></div>
+    </section>
+
+    <section id="cardapio">
+      <div class="section-heading">
+        <div>
+          <h2>Nosso cardápio</h2>
+          <p>Escolha uma delícia para hoje.</p>
+        </div>
+      </div>
+      <nav id="categories" class="categories" aria-label="Categorias do cardápio"></nav>
       <div id="product-grid" class="product-grid"></div>
+    </section>
+
+    <section class="promo">
+      <div>
+        <strong>Uma pausa gostosa muda o dia 💜</strong>
+        <p>Escolha seus favoritos e envie seu pedido para a nossa equipe.</p>
+      </div>
+      <div class="promo-badge">🍓🍌</div>
     </section>
   </main>
 
   <footer>
     <div class="footer-inner">
-      <div><strong>Mercado Vila</strong><br>Qualidade e economia perto de você.</div>
-      <div>Pedidos e dúvidas: <strong>fale conosco pelo WhatsApp</strong></div>
-      <div>© <span id="year"></span> Mercado Vila</div>
+      <div><strong>Açaí Mania</strong><br>Seu momento mais gostoso.</div>
+      <div>Pedidos pelo WhatsApp · Consulte horário e entrega</div>
+      <div>© <span id="year"></span> Açaí Mania</div>
     </div>
   </footer>
 
   <dialog id="cart-dialog">
     <div class="dialog-head">
-      <h2>Seu carrinho</h2>
+      <h2>🛍️ Seu pedido</h2>
       <button class="close-button" aria-label="Fechar" onclick="fecharCarrinho()">×</button>
     </div>
     <div class="dialog-body" id="cart-items"></div>
     <div class="dialog-foot">
       <div class="total-line"><span>Total estimado</span><span id="cart-total">R$ 0,00</span></div>
-      <button class="primary-button" onclick="finalizarPedido()">Continuar pelo WhatsApp</button>
-      <button class="secondary-button" onclick="fecharCarrinho()">Continuar comprando</button>
+      <button class="primary-button" onclick="finalizarPedido()">Enviar pedido pelo WhatsApp</button>
+      <button class="secondary-button" onclick="fecharCarrinho()">Continuar escolhendo</button>
     </div>
   </dialog>
 
   <script>
-    // Edite esta lista para cadastrar os produtos e preços da sua loja.
+    // Edite nomes, descrições e preços para corresponder ao seu cardápio.
     const produtos = [
-      { id: 1, nome: "Arroz tipo 1", detalhe: "Pacote de 5 kg", categoria: "Mercearia", preco: 27.90, emoji: "🍚", tag: "Mais vendido" },
-      { id: 2, nome: "Feijão carioca", detalhe: "Pacote de 1 kg", categoria: "Mercearia", preco: 8.49, emoji: "🫘" },
-      { id: 3, nome: "Leite integral", detalhe: "Caixa de 1 litro", categoria: "Laticínios", preco: 5.29, emoji: "🥛" },
-      { id: 4, nome: "Pão de forma", detalhe: "Pacote tradicional", categoria: "Padaria", preco: 9.90, emoji: "🍞" },
-      { id: 5, nome: "Banana", detalhe: "Preço por quilo", categoria: "Hortifruti", preco: 6.99, emoji: "🍌", tag: "Fresquinho" },
-      { id: 6, nome: "Maçã vermelha", detalhe: "Preço por quilo", categoria: "Hortifruti", preco: 9.99, emoji: "🍎" },
-      { id: 7, nome: "Café tradicional", detalhe: "Pacote de 500 g", categoria: "Mercearia", preco: 18.90, emoji: "☕" },
-      { id: 8, nome: "Ovos brancos", detalhe: "Bandeja com 12 unidades", categoria: "Laticínios", preco: 12.50, emoji: "🥚" },
-      { id: 9, nome: "Suco de laranja", detalhe: "Embalagem de 1 litro", categoria: "Bebidas", preco: 7.49, emoji: "🧃" },
-      { id: 10, nome: "Óleo de soja", detalhe: "Garrafa de 900 ml", categoria: "Mercearia", preco: 7.99, emoji: "🫗" },
-      { id: 11, nome: "Tomate", detalhe: "Preço por quilo", categoria: "Hortifruti", preco: 8.90, emoji: "🍅" },
-      { id: 12, nome: "Queijo muçarela", detalhe: "Preço por quilo", categoria: "Laticínios", preco: 39.90, emoji: "🧀" }
+      { id: 1, nome: "Açaí Tradicional", detalhe: "Açaí cremoso · 300 ml", categoria: "Açaí", preco: 14.90, emoji: "🍇", tag: "Queridinho" },
+      { id: 2, nome: "Açaí com Banana", detalhe: "Açaí e banana · 400 ml", categoria: "Açaí", preco: 19.90, emoji: "🍌" },
+      { id: 3, nome: "Açaí Morango", detalhe: "Açaí e morangos · 400 ml", categoria: "Açaí", preco: 21.90, emoji: "🍓", tag: "Popular" },
+      { id: 4, nome: "Açaí Completo", detalhe: "Granola, banana e leite em pó · 500 ml", categoria: "Açaí", preco: 26.90, emoji: "🍨", tag: "Mais pedido" },
+      { id: 5, nome: "Açaí com Nutella", detalhe: "Açaí, banana e creme de avelã · 500 ml", categoria: "Especiais", preco: 29.90, emoji: "🍫" },
+      { id: 6, nome: "Açaí Tropical", detalhe: "Açaí, manga e granola · 500 ml", categoria: "Especiais", preco: 27.90, emoji: "🥭" },
+      { id: 7, nome: "Açaí na Tigela", detalhe: "Açaí, frutas e granola · 700 ml", categoria: "Tigelas", preco: 34.90, emoji: "🥣" },
+      { id: 8, nome: "Tigela Especial", detalhe: "Açaí, morango, banana e creme · 700 ml", categoria: "Tigelas", preco: 39.90, emoji: "🍓", tag: "Especial" },
+      { id: 9, nome: "Vitamina de Açaí", detalhe: "Açaí batido · 400 ml", categoria: "Bebidas", preco: 18.90, emoji: "🥤" },
+      { id: 10, nome: "Suco Natural", detalhe: "Consulte os sabores disponíveis · 400 ml", categoria: "Bebidas", preco: 10.00, emoji: "🧃" },
+      { id: 11, nome: "Adicional de Granola", detalhe: "Porção extra", categoria: "Adicionais", preco: 3.00, emoji: "🥣" },
+      { id: 12, nome: "Adicional de Leite em Pó", detalhe: "Porção extra", categoria: "Adicionais", preco: 3.00, emoji: "🥛" }
     ];
 
-    // Informe o telefone com código do país e DDD, somente números.
+    // Troque pelo WhatsApp da loja: código do país + DDD + número, somente números.
     const WHATSAPP_DA_LOJA = "5500000000000";
 
-    const iconesCategoria = {
-      "Todos": "🛍️",
-      "Hortifruti": "🥬",
-      "Mercearia": "🛒",
-      "Laticínios": "🥛",
-      "Padaria": "🥖",
-      "Bebidas": "🧃"
-    };
-
     let categoriaAtual = "Todos";
-    let carrinho = JSON.parse(localStorage.getItem("mercado-vila-carrinho") || "[]");
+    let carrinho = JSON.parse(localStorage.getItem("acai-mania-carrinho") || "[]");
 
-    function formatarMoeda(valor) {
+    function moeda(valor) {
       return Number(valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
@@ -530,9 +573,7 @@
       const categorias = ["Todos", ...new Set(produtos.map(p => p.categoria))];
       document.getElementById("categories").innerHTML = categorias.map(categoria => `
         <button class="category-button ${categoria === categoriaAtual ? "active" : ""}"
-          onclick="selecionarCategoria('${categoria}')">
-          <span>${iconesCategoria[categoria] || "🛍️"}</span>${categoria}
-        </button>
+          onclick="selecionarCategoria('${categoria}')">${categoria}</button>
       `).join("");
     }
 
@@ -544,31 +585,30 @@
 
     function renderizarProdutos() {
       const busca = document.getElementById("search").value.trim().toLocaleLowerCase("pt-BR");
-      const filtrados = produtos.filter(produto =>
-        (categoriaAtual === "Todos" || produto.categoria === categoriaAtual) &&
-        `${produto.nome} ${produto.detalhe} ${produto.categoria}`.toLocaleLowerCase("pt-BR").includes(busca)
+      const lista = produtos.filter(p =>
+        (categoriaAtual === "Todos" || p.categoria === categoriaAtual) &&
+        `${p.nome} ${p.detalhe} ${p.categoria}`.toLocaleLowerCase("pt-BR").includes(busca)
       );
-
       const grid = document.getElementById("product-grid");
-      if (!filtrados.length) {
-        grid.innerHTML = '<div class="empty-state">Nenhum produto encontrado. Tente outra busca ou categoria.</div>';
+
+      if (!lista.length) {
+        grid.innerHTML = '<div class="empty-state">Não encontramos esse item. Tente outra busca ou categoria. 💜</div>';
         return;
       }
 
-      grid.innerHTML = filtrados.map(produto => `
+      grid.innerHTML = lista.map(p => `
         <article class="product-card">
           <div class="product-visual">
-            ${produto.tag ? `<span class="product-tag">${produto.tag}</span>` : ""}
-            <span aria-hidden="true">${produto.emoji}</span>
+            ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ""}
+            <span class="product-emoji" aria-hidden="true">${p.emoji}</span>
           </div>
           <div class="product-info">
-            <div class="product-category">${produto.categoria}</div>
-            <div class="product-name">${produto.nome}</div>
-            <div class="product-detail">${produto.detalhe}</div>
+            <div class="product-category">${p.categoria}</div>
+            <div class="product-name">${p.nome}</div>
+            <div class="product-detail">${p.detalhe}</div>
             <div class="product-bottom">
-              <div class="price">${formatarMoeda(produto.preco)} <span class="price-unit">/ un.</span></div>
-              <button class="add-button" aria-label="Adicionar ${produto.nome} ao carrinho"
-                onclick="adicionarAoCarrinho(${produto.id})">+</button>
+              <div class="price">${moeda(p.preco)} <span class="price-unit">/ un.</span></div>
+              <button class="add-button" aria-label="Adicionar ${p.nome}" onclick="adicionar(${p.id})">+</button>
             </div>
           </div>
         </article>
@@ -576,19 +616,19 @@
     }
 
     function salvarCarrinho() {
-      localStorage.setItem("mercado-vila-carrinho", JSON.stringify(carrinho));
+      localStorage.setItem("acai-mania-carrinho", JSON.stringify(carrinho));
       atualizarContador();
     }
 
     function atualizarContador() {
       document.getElementById("cart-count").textContent =
-        carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+        carrinho.reduce((total, item) => total + item.quantidade, 0);
     }
 
-    function adicionarAoCarrinho(id) {
+    function adicionar(id) {
       const produto = produtos.find(p => p.id === id);
       const item = carrinho.find(i => i.id === id);
-      if (item) item.quantidade += 1;
+      if (item) item.quantidade++;
       else carrinho.push({ ...produto, quantidade: 1 });
       salvarCarrinho();
     }
@@ -602,10 +642,10 @@
       document.getElementById("cart-dialog").close();
     }
 
-    function alterarQuantidade(id, alteracao) {
+    function mudarQuantidade(id, delta) {
       const item = carrinho.find(i => i.id === id);
       if (!item) return;
-      item.quantidade += alteracao;
+      item.quantidade += delta;
       if (item.quantidade <= 0) carrinho = carrinho.filter(i => i.id !== id);
       salvarCarrinho();
       renderizarCarrinho();
@@ -613,31 +653,32 @@
 
     function renderizarCarrinho() {
       const container = document.getElementById("cart-items");
+
       if (!carrinho.length) {
-        container.innerHTML = '<p style="color:#69766c;text-align:center;padding:22px 0">Seu carrinho está vazio.</p>';
+        container.innerHTML = '<p style="color:#786b83;text-align:center;padding:24px 0">Seu pedido está vazio. Escolha algo gostoso! 🍨</p>';
       } else {
         container.innerHTML = carrinho.map(item => `
           <div class="cart-row">
             <div>
               <div class="cart-row-name">${item.emoji} ${item.nome}</div>
-              <div class="cart-row-price">${formatarMoeda(item.preco)} cada · ${formatarMoeda(item.preco * item.quantidade)}</div>
+              <div class="cart-row-price">${moeda(item.preco)} cada · ${moeda(item.preco * item.quantidade)}</div>
             </div>
             <div class="quantity">
-              <button aria-label="Diminuir quantidade" onclick="alterarQuantidade(${item.id}, -1)">−</button>
+              <button aria-label="Diminuir" onclick="mudarQuantidade(${item.id}, -1)">−</button>
               <strong>${item.quantidade}</strong>
-              <button aria-label="Aumentar quantidade" onclick="alterarQuantidade(${item.id}, 1)">+</button>
+              <button aria-label="Aumentar" onclick="mudarQuantidade(${item.id}, 1)">+</button>
             </div>
           </div>
         `).join("");
       }
 
       const total = carrinho.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
-      document.getElementById("cart-total").textContent = formatarMoeda(total);
+      document.getElementById("cart-total").textContent = moeda(total);
     }
 
     function finalizarPedido() {
       if (!carrinho.length) {
-        alert("Seu carrinho está vazio.");
+        alert("Seu pedido está vazio.");
         return;
       }
 
@@ -647,10 +688,10 @@
       }
 
       const itens = carrinho.map(item =>
-        `• ${item.nome} (${item.detalhe}) x${item.quantidade} — ${formatarMoeda(item.preco * item.quantidade)}`
+        `• ${item.nome} x${item.quantidade} — ${moeda(item.preco * item.quantidade)}`
       );
       const total = carrinho.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
-      const mensagem = `Olá! Gostaria de fazer este pedido:\n\n${itens.join("\n")}\n\nTotal estimado: ${formatarMoeda(total)}\n\nPor favor, confirmem a disponibilidade e a entrega.`;
+      const mensagem = `Olá! Gostaria de fazer este pedido:\n\n${itens.join("\n")}\n\nTotal estimado: ${moeda(total)}\n\nPor favor, confirme a disponibilidade, entrega e formas de pagamento.`;
       window.open(`https://wa.me/${WHATSAPP_DA_LOJA}?text=${encodeURIComponent(mensagem)}`, "_blank", "noopener");
     }
 
