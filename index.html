@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercadinho da Vila</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #243126;
+      background: #f6f8f3;
+    }
+    header {
+      background: #176b3a;
+      color: white;
+      padding: 18px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .logo { font-size: 1.35rem; font-weight: bold; }
+    .search {
+      flex: 1;
+      max-width: 520px;
+      padding: 12px 15px;
+      border: 0;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    button { cursor: pointer; }
+    .cart-button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      background: #f5c542;
+      color: #243126;
+      font-weight: bold;
+    }
+    main { max-width: 1200px; margin: auto; padding: 28px 18px; }
+    .hero {
+      background: #e4f1e5;
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .hero h1 { margin: 0 0 8px; color: #176b3a; }
+    .filters {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+    .filter {
+      border: 1px solid #cbd8cc;
+      background: white;
+      border-radius: 20px;
+      padding: 9px 15px;
+    }
+    .filter.active { background: #176b3a; color: white; border-color: #176b3a; }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e3e9e2;
+      border-radius: 15px;
+      padding: 16px;
+      box-shadow: 0 4px 14px #1c3b1c0d;
+    }
+    .product-image {
+      height: 120px;
+      display: grid;
+      place-items: center;
+      background: #f3f7ef;
+      border-radius: 12px;
+      font-size: 3.5rem;
+    }
+    .card h3 { margin: 13px 0 5px; }
+    .category { color: #718071; font-size: .85rem; }
+    .price { color: #176b3a; font-size: 1.2rem; font-weight: bold; margin: 12px 0; }
+    .add-button {
+      width: 100%;
+      border: 0;
+      border-radius: 9px;
+      padding: 11px;
+      color: white;
+      background: #176b3a;
+      font-weight: bold;
+    }
+    .add-button:hover { background: #10552d; }
+    .empty { padding: 30px; text-align: center; color: #718071; }
+    footer { text-align: center; padding: 24px; color: #718071; }
+    dialog {
+      width: min(480px, 92vw);
+      border: 0;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 15px 50px #0004;
+    }
+    dialog::backdrop { background: #0007; }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .cart-actions { display: flex; gap: 8px; align-items: center; }
+    .small-button { border: 1px solid #ddd; background: white; border-radius: 6px; padding: 4px 9px; }
+    .checkout {
+      display: block;
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px;
+      border: 0;
+      border-radius: 9px;
+      background: #176b3a;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🛒 Mercadinho da Vila</div>
+    <input id="search" class="search" type="search" placeholder="Buscar produtos...">
+    <button class="cart-button" onclick="abrirCarrinho()">
+      Carrinho (<span id="cart-count">0</span>)
+    </button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Produtos fresquinhos para sua casa</h1>
+      <p>Encontre alimentos, bebidas e itens essenciais em um só lugar.</p>
+    </section>
+
+    <div id="filters" class="filters"></div>
+    <section id="products" class="products"></section>
+  </main>
+
+  <footer>Mercadinho da Vila · Peça com praticidade</footer>
+
+  <dialog id="cart-dialog">
+    <h2>Seu carrinho</h2>
+    <div id="cart-items"></div>
+    <p><strong>Total: <span id="cart-total">R$ 0,00</span></strong></p>
+    <button class="checkout" onclick="finalizarPedido()">Finalizar pedido pelo WhatsApp</button>
+    <button class="small-button" style="margin-top:10px" onclick="fecharCarrinho()">Continuar comprando</button>
+  </dialog>
+
+  <script>
+    const produtos = [
+      { id: 1, nome: "Arroz 5 kg", categoria: "Mercearia", preco: 27.90, emoji: "🍚" },
+      { id: 2, nome: "Feijão 1 kg", categoria: "Mercearia", preco: 8.49, emoji: "🫘" },
+      { id: 3, nome: "Leite integral 1 L", categoria: "Laticínios", preco: 5.29, emoji: "🥛" },
+      { id: 4, nome: "Pão de forma", categoria: "Padaria", preco: 9.90, emoji: "🍞" },
+      { id: 5, nome: "Banana (kg)", categoria: "Hortifruti", preco: 6.99, emoji: "🍌" },
+      { id: 6, nome: "Maçã (kg)", categoria: "Hortifruti", preco: 9.99, emoji: "🍎" },
+      { id: 7, nome: "Café 500 g", categoria: "Mercearia", preco: 18.90, emoji: "☕" },
+      { id: 8, nome: "Ovos com 12", categoria: "Laticínios", preco: 12.50, emoji: "🥚" },
+      { id: 9, nome: "Suco de laranja 1 L", categoria: "Bebidas", preco: 7.49, emoji: "🧃" },
+      { id: 10, nome: "Óleo de soja 900 ml", categoria: "Mercearia", preco: 7.99, emoji: "🫗" }
+    ];
+
+    let carrinho = JSON.parse(localStorage.getItem("mercado-carrinho") || "[]");
+    let categoriaAtual = "Todos";
+
+    const dinheiro = valor => valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+
+    function salvarCarrinho() {
+      localStorage.setItem("mercado-carrinho", JSON.stringify(carrinho));
+      atualizarContador();
+    }
+
+    function atualizarContador() {
+      document.getElementById("cart-count").textContent =
+        carrinho.reduce((total, item) => total + item.quantidade, 0);
+    }
+
+    function montarFiltros() {
+      const categorias = ["Todos", ...new Set(produtos.map(p => p.categoria))];
+      document.getElementById("filters").innerHTML = categorias.map(categoria => `
+        <button class="filter ${categoria === categoriaAtual ? "active" : ""}"
+          onclick="filtrarCategoria('${categoria}')">${categoria}</button>
+      `).join("");
+    }
+
+    function filtrarCategoria(categoria) {
+      categoriaAtual = categoria;
+      montarFiltros();
+      mostrarProdutos();
+    }
+
+    function mostrarProdutos() {
+      const busca = document.getElementById("search").value.trim().toLowerCase();
+      const lista = produtos.filter(p =>
+        (categoriaAtual === "Todos" || p.categoria === categoriaAtual) &&
+        p.nome.toLowerCase().includes(busca)
+      );
+
+      document.getElementById("products").innerHTML = lista.length
+        ? lista.map(p => `
+          <article class="card">
+            <div class="product-image" aria-hidden="true">${p.emoji}</div>
+            <h3>${p.nome}</h3>
+            <div class="category">${p.categoria}</div>
+            <div class="price">${dinheiro(p.preco)}</div>
+            <button class="add-button" onclick="adicionarAoCarrinho(${p.id})">
+              Adicionar ao carrinho
+            </button>
+          </article>
+        `).join("")
+        : '<div class="empty">Não encontramos produtos com esse nome.</div>';
+    }
+
+    function adicionarAoCarrinho(id) {
+      const produto = produtos.find(p => p.id === id);
+      const item = carrinho.find(i => i.id === id);
+
+      if (item) item.quantidade++;
+      else carrinho.push({ ...produto, quantidade: 1 });
+
+      salvarCarrinho();
+    }
+
+    function abrirCarrinho() {
+      mostrarCarrinho();
+      document.getElementById("cart-dialog").showModal();
+    }
+
+    function fecharCarrinho() {
+      document.getElementById("cart-dialog").close();
+    }
+
+    function alterarQuantidade(id, mudanca) {
+      const item = carrinho.find(i => i.id === id);
+      if (!item) return;
+
+      item.quantidade += mudanca;
+      if (item.quantidade <= 0) {
+        carrinho = carrinho.filter(i => i.id !== id);
+      }
+
+      salvarCarrinho();
+      mostrarCarrinho();
+    }
+
+    function mostrarCarrinho() {
+      const container = document.getElementById("cart-items");
+
+      container.innerHTML = carrinho.length
+        ? carrinho.map(item => `
+          <div class="cart-item">
+            <div>${item.emoji} ${item.nome}<br><small>${dinheiro(item.preco)} cada</small></div>
+            <div class="cart-actions">
+              <button class="small-button" onclick="alterarQuantidade(${item.id}, -1)">−</button>
+              <span>${item.quantidade}</span>
+              <button class="small-button" onclick="alterarQuantidade(${item.id}, 1)">+</button>
+            </div>
+          </div>
+        `).join("")
+        : '<p>Seu carrinho está vazio.</p>';
+
+      const total = carrinho.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
+      document.getElementById("cart-total").textContent = dinheiro(total);
+    }
+
+    function finalizarPedido() {
+      if (!carrinho.length) {
+        alert("Adicione pelo menos um produto ao carrinho.");
+        return;
+      }
+
+      const linhas = carrinho.map(item =>
+        `• ${item.nome} x${item.quantidade} — ${dinheiro(item.preco * item.quantidade)}`
+      );
+      const total = carrinho.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
+
+      const mensagem = `Olá! Quero fazer este pedido:\n${linhas.join("\n")}\n\nTotal: ${dinheiro(total)}`;
+      const telefoneDaLoja = "5500000000000"; // Troque pelo número da loja, com DDI e DDD.
+      window.open(`https://wa.me/${telefoneDaLoja}?text=${encodeURIComponent(mensagem)}`, "_blank");
+    }
+
+    document.getElementById("search").addEventListener("input", mostrarProdutos);
+
+    montarFiltros();
+    mostrarProdutos();
+    atualizarContador();
+  </script>
+</body>
+</html>
